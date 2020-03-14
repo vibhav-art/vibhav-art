@@ -1,0 +1,109 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2019.12.20 21:09:28 =~=~=~=~=~=~=~=~=~=~=~=
+
+RP/0/0/CPU0:C4C-INET#show run 
+Fri Dec 20 15:38:09.927 UTC
+Building configuration...
+!! IOS XR Configuration 6.0.1
+!! Last configuration change at Fri Dec 20 15:12:08 2019 by CVAC
+!
+hostname C4C-INET
+banner exec ^C
++-------------------------------------------------------------+
+|                       CCIE4career.com                       |                              
+|               Skype ID1: ccie04final                        |
+|               Skype ID2: nguyenbich279                      |
+|The best solution, very clear workbook.                      |
+|The best way you can get CCIE Certificate                    |
+|-------------------------------------------------------------|
+| Our product:                                                |
+|+ Workbook: For you to practice at home                      |
+|+ Video: Help you understand about traffic follow            |
+|         and technology in the real lab                      |
+|+ Support: 24/7, answer all your doubt question in private   |
+|+ Live Stream: Train and answer all your questions           | 
++-------------------------------------------------------------+
+^C
+domain lookup disable
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 111.0.0.111 255.255.255.255
+ ipv6 address 2001:db8:111::111/128
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 1.111.6.111 255.255.255.0
+ ipv6 address 2001:db8:1:1116::111/64
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 2.111.6.111 255.255.255.0
+ ipv6 address 2001:db8:2:1116::111/64
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 4.111.4.111 255.255.255.0
+ ipv6 address 2001:db8:4:1114::111/64
+!
+route-policy PASS-ALL
+  pass
+end-policy
+!
+router bgp 111
+ bgp router-id 111.0.0.111
+ address-family ipv4 unicast
+  network 111.0.0.111/32
+ !
+ address-family ipv6 unicast
+  network 2001:db8:111::111/128
+ !
+ neighbor 1.111.6.6
+  remote-as 1
+  address-family ipv4 unicast
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+ neighbor 2.111.6.6
+  remote-as 2
+  address-family ipv4 unicast
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+ neighbor 4.111.4.4
+  remote-as 4
+  address-family ipv4 unicast
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+ neighbor 2001:db8:1:1116::6
+  remote-as 1
+  address-family ipv6 unicast
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+ neighbor 2001:db8:2:1116::6
+  remote-as 2
+  address-family ipv6 unicast
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+ neighbor 2001:db8:4:1114::4
+  remote-as 4
+  address-family ipv6 unicast
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+!
+end
+
+RP/0/0/CPU0:C4C-INET#
+RP/0/0/CPU0:C4C-INET#
+RP/0/0/CPU0:C4C-INET#
